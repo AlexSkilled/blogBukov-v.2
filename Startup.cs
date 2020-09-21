@@ -51,7 +51,6 @@ namespace blogBukov
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var guarantors = scope.ServiceProvider.GetServices<IStartupPreConditionGuarantor>();
