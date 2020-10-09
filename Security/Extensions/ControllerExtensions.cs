@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Security.Claims;
-using WebApplication3.Domain.Model;
+using blogBukov.Domain.Model;
 
 namespace BlogForStudents.Security.Extensions
 {

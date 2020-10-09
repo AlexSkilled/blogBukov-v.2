@@ -13,6 +13,9 @@ using blogBukov.Domain.DB;
 
 namespace WebApplication3.Controllers
 {
+    /// <summary>
+    /// Контроллер аккаунтов
+    /// </summary>
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;

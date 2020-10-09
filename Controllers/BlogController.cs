@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace blogBukov.Controllers
 {
+    /// <summary>
+    /// Контроллер блога
+    /// </summary>
     public class BlogController : Controller
     {
 
@@ -21,7 +24,10 @@ namespace blogBukov.Controllers
         {
             _blogDbContext = blogDbContext ?? throw new ArgumentNullException(nameof(blogDbContext));
         }
-
+        /// <summary>
+        /// Получение главной страницы постов
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             var posts = _blogDbContext.BlogPost
@@ -32,13 +38,23 @@ namespace blogBukov.Controllers
                     Data = x.Data,
                     Title = x.Title
                 }).OrderByDescending(x => x.Created);
-            return View();
+            return View(posts);
         }
 
-        [Authorize]
         [HttpGet]
+        public IActionResult AddPost()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Добавление поста
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddPost(NewPostViewModel model)
+        public IActionResult AddPostAsync(NewPostViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -50,6 +66,8 @@ namespace blogBukov.Controllers
                 Title = model.Title,
                 Owner = user.Employee
             };
+            _blogDbContext.BlogPost.Add(post);
+            _blogDbContext.SaveChanges();
             return View();
         }
     }
